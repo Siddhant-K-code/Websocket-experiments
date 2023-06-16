@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebSocket Experiments</title>
+  </head>
+  <body>
+    Server Response:
+    <div id="response"></div>
+    <script>
+      const socketUri =
+        (window.location.protocol === "https:" ? "wss://" : "ws://") +
+        window.location.host;
+      const webSocket = new WebSocket(socketUri);
+      webSocket.onerror = function (event) {
+        console.error("Connection failed! ", event);
+      };
+      webSocket.onmessage = function (event) {
+        const resultDiv = document.getElementById("response");
+        console.log("Server said: ", event.data);
+        resultDiv.innerText = event.data;
+      };
+      webSocket.onopen = function () {
+        console.log("Connected!");
+        webSocket.send("Hello from the web browser!");
+      };
+    </script>
+  </body>
+</html>

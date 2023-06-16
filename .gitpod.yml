@@ -1,0 +1,13 @@
+tasks:
+  - name: Start preview page
+    command: python -m http.server 8000
+    openMode: split-left
+  - name: Start server
+    command: node index.js
+    openMode: split-right
+
+ports:
+  - port: 8000
+    onOpen: open-preview
+  - port: 3000
+    onOpen: open-preview
